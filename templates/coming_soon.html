@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }} · AI Earth Doctor{% endblock %}
+{% block page_title %}{{ icon }} {{ page_title }}{% endblock %}
+{% block page_subtitle %}Planned module{% endblock %}
+
+{% block content %}
+<section class="card center-card">
+    <div class="big-icon">{{ icon }}</div>
+    <h2>{{ page_title }}</h2>
+    <p>{{ description }}</p>
+    <p><span class="badge badge-blue">Built in {{ stage }}</span></p>
+    <p class="note">This module is not implemented yet. No results are shown here until it exists.</p>
+    <a class="btn btn-primary" href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</section>
+{% endblock %}

@@ -1,0 +1,395 @@
+{
+ "model": {
+  "kind": "rf",
+  "kind_label": "Random Forest (scikit-learn)",
+  "trained_at": "2026-11-01 15:13",
+  "trained_on": {
+   "source": "sample region (data/sample/demo_region)",
+   "years": [
+    2018,
+    2019,
+    2026
+   ]
+  },
+  "classes": {
+   "1": "Water",
+   "2": "Vegetation",
+   "3": "Built-up",
+   "4": "Bare / other"
+  },
+  "excluded_classes": {},
+  "training_samples": {
+   "Water": 3695,
+   "Vegetation": 12000,
+   "Built-up": 1468,
+   "Bare / other": 1258
+  },
+  "label_rules": {
+   "Water": "NDWI > 0.10",
+   "Vegetation": "NDVI > 0.45",
+   "Built-up": "NDBI > 0.05 and NDVI < 0.15",
+   "Bare / other": "NDVI 0.12 to 0.28 and NDBI < 0.00"
+  },
+  "holdout": {
+   "accuracy": 0.99,
+   "per_class": {
+    "Water": {
+     "precision": 0.9946,
+     "recall": 0.9883,
+     "f1": 0.9914,
+     "support": 1108
+    },
+    "Vegetation": {
+     "precision": 0.9997,
+     "recall": 0.9978,
+     "f1": 0.9987,
+     "support": 3600
+    },
+    "Built-up": {
+     "precision": 0.9341,
+     "recall": 0.9659,
+     "f1": 0.9497,
+     "support": 440
+    },
+    "Bare / other": {
+     "precision": 0.9521,
+     "recall": 0.9496,
+     "f1": 0.9509,
+     "support": 377
+    }
+   },
+   "confusion": {
+    "labels": [
+     "Water",
+     "Vegetation",
+     "Built-up",
+     "Bare / other"
+    ],
+    "matrix": [
+     [
+      1095,
+      0,
+      13,
+      0
+     ],
+     [
+      0,
+      3592,
+      0,
+      8
+     ],
+     [
+      5,
+      0,
+      425,
+      10
+     ],
+     [
+      1,
+      1,
+      17,
+      358
+     ]
+    ]
+   },
+   "n_test": 5525
+  },
+  "leave_one_year_out": {
+   "accuracy": 0.9486,
+   "per_class": {
+    "Water": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "support": 184
+    },
+    "Vegetation": {
+     "precision": 0.9998,
+     "recall": 1.0,
+     "f1": 0.9999,
+     "support": 4000
+    },
+    "Built-up": {
+     "precision": 0.5898,
+     "recall": 0.8287,
+     "f1": 0.6891,
+     "support": 321
+    },
+    "Bare / other": {
+     "precision": 0.75,
+     "recall": 0.9939,
+     "f1": 0.8549,
+     "support": 163
+    }
+   },
+   "confusion": {
+    "labels": [
+     "Water",
+     "Vegetation",
+     "Built-up",
+     "Bare / other"
+    ],
+    "matrix": [
+     [
+      0,
+      0,
+      184,
+      0
+     ],
+     [
+      0,
+      4000,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      266,
+      54
+     ],
+     [
+      0,
+      0,
+      1,
+      162
+     ]
+    ]
+   },
+   "n_test": 4668,
+   "test_year": 2026,
+   "train_years": [
+    2018,
+    2019
+   ]
+  },
+  "kmeans_check": {
+   "year": 2026,
+   "k": 5,
+   "agreement_percent": 93.3,
+   "clusters": [
+    {
+     "cluster": 1,
+     "share_percent": 29.7,
+     "main_rule_class": "Vegetation",
+     "purity_percent": 100.0
+    },
+    {
+     "cluster": 2,
+     "share_percent": 27.2,
+     "main_rule_class": "Vegetation",
+     "purity_percent": 92.8
+    },
+    {
+     "cluster": 3,
+     "share_percent": 19.3,
+     "main_rule_class": "Vegetation",
+     "purity_percent": 98.4
+    },
+    {
+     "cluster": 4,
+     "share_percent": 12.1,
+     "main_rule_class": "Vegetation",
+     "purity_percent": 100.0
+    },
+    {
+     "cluster": 5,
+     "share_percent": 11.7,
+     "main_rule_class": "Bare / other",
+     "purity_percent": 62.1
+    }
+   ]
+  },
+  "caveat": "These test numbers measure how well the model reproduces CONFIDENT rule-based labels. They are NOT accuracy against the real ground, because no ground-truth map is available."
+ },
+ "years": [
+  {
+   "year": 2018,
+   "ml_km2": {
+    "Water": 0.0003,
+    "Vegetation": 20.0811,
+    "Built-up": 2.1271,
+    "Bare / other": 1.9134
+   },
+   "rule_km2": {
+    "Water": 0.0059,
+    "Vegetation": 20.4986,
+    "Built-up": 0.5868,
+    "Bare / other": 3.0306
+   },
+   "agreement_percent": 90.68,
+   "agreement_matrix": {
+    "labels": [
+     "Water",
+     "Vegetation",
+     "Built-up",
+     "Bare / other"
+    ],
+    "percent": [
+     [
+      0.0,
+      0.0,
+      0.02,
+      0.0
+     ],
+     [
+      0.0,
+      82.72,
+      0.55,
+      1.71
+     ],
+     [
+      0.0,
+      0.0,
+      2.09,
+      0.34
+     ],
+     [
+      0.0,
+      0.53,
+      6.15,
+      5.88
+     ]
+    ]
+   },
+   "mean_confidence": 0.91,
+   "low_confidence_percent": 11.44,
+   "analysed_km2": 24.122
+  },
+  {
+   "year": 2019,
+   "ml_km2": {
+    "Water": 0.3181,
+    "Vegetation": 22.075,
+    "Built-up": 0.9171,
+    "Bare / other": 0.8116
+   },
+   "rule_km2": {
+    "Water": 0.359,
+    "Vegetation": 22.4772,
+    "Built-up": 0.0775,
+    "Bare / other": 1.2082
+   },
+   "agreement_percent": 93.24,
+   "agreement_matrix": {
+    "labels": [
+     "Water",
+     "Vegetation",
+     "Built-up",
+     "Bare / other"
+    ],
+    "percent": [
+     [
+      1.32,
+      0.0,
+      0.14,
+      0.03
+     ],
+     [
+      0.0,
+      90.47,
+      0.64,
+      2.08
+     ],
+     [
+      0.0,
+      0.0,
+      0.26,
+      0.06
+     ],
+     [
+      0.0,
+      1.05,
+      2.77,
+      1.19
+     ]
+    ]
+   },
+   "mean_confidence": 0.937,
+   "low_confidence_percent": 6.55,
+   "analysed_km2": 24.122
+  },
+  {
+   "year": 2026,
+   "ml_km2": {
+    "Water": 0.0158,
+    "Vegetation": 21.4695,
+    "Built-up": 1.7824,
+    "Bare / other": 0.8542
+   },
+   "rule_km2": {
+    "Water": 0.0225,
+    "Vegetation": 21.5811,
+    "Built-up": 0.1663,
+    "Bare / other": 2.3521
+   },
+   "agreement_percent": 91.07,
+   "agreement_matrix": {
+    "labels": [
+     "Water",
+     "Vegetation",
+     "Built-up",
+     "Bare / other"
+    ],
+    "percent": [
+     [
+      0.07,
+      0.0,
+      0.03,
+      0.0
+     ],
+     [
+      0.0,
+      87.86,
+      0.6,
+      1.01
+     ],
+     [
+      0.0,
+      0.0,
+      0.65,
+      0.04
+     ],
+     [
+      0.0,
+      1.15,
+      6.1,
+      2.5
+     ]
+    ]
+   },
+   "mean_confidence": 0.935,
+   "low_confidence_percent": 8.88,
+   "analysed_km2": 24.122
+  }
+ ],
+ "low_confidence_threshold": 0.6,
+ "confidence_legend": {
+  "min": 0.3,
+  "max": 1.0,
+  "stops": [
+   {
+    "percent": 0.0,
+    "color": "rgb(190,40,40)"
+   },
+   {
+    "percent": 42.9,
+    "color": "rgb(240,190,60)"
+   },
+   {
+    "percent": 71.4,
+    "color": "rgb(150,200,90)"
+   },
+   {
+    "percent": 100.0,
+    "color": "rgb(20,120,40)"
+   }
+  ]
+ },
+ "notes": [
+  "The model was trained on CONFIDENT pixels only, then classifies every pixel, including the ambiguous ones near the rule thresholds.",
+  "'Agreement' compares the ML map with the rule-based map. It is NOT accuracy: with no ground-truth map, neither method is known to be right.",
+  "Confidence is the probability the model gives to its chosen class. Pixels below 60% are uncertain.",
+  "A class that had too few confident training pixels is never predicted (see 'excluded classes')."
+ ]
+}

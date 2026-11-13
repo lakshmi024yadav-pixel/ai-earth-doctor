@@ -1,0 +1,9 @@
+{
+  "description": "Real Sentinel-2 L2A images downloaded from Copernicus Browser and clipped to one study area in the Gurugram region, Haryana, India.",
+  "source": "Copernicus Data Space Ecosystem - Sentinel-2",
+  "scenes": {
+    "2018": { "acquisition_date": "2018-10-05 to 2018-10-15 (requested date range)", "product": "Sentinel-2 L2A, raw bands B02 B03 B04 B08 B11" },
+    "2019": { "acquisition_date": "2019-10-05 to 2019-10-15 (requested date range)", "product": "Sentinel-2 L2A, raw bands B02 B03 B04 B08 B11" },
+    "2026": { "acquisition_date": "2026-10-05 to 2026-10-15 (requested date range)", "product": "Sentinel-2 L2A, raw bands B02 B03 B04 B08 B11" }
+  }
+}

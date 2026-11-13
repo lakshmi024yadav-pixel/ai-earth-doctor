@@ -1,0 +1,572 @@
+{
+ "years": [
+  2018,
+  2019,
+  2026
+ ],
+ "pairs": [
+  {
+   "from_year": 2018,
+   "to_year": 2019,
+   "label": "2018 \u2192 2019",
+   "years_apart": 1,
+   "analysed_km2": 24.122,
+   "changed_km2": 2.2377,
+   "changed_percent": 9.28,
+   "categories": [
+    {
+     "name": "Water",
+     "area_from_km2": 0.0059,
+     "area_to_km2": 0.359,
+     "net_km2": 0.3531,
+     "net_percent": null,
+     "gained_km2": 0.3517,
+     "lost_km2": 0.0
+    },
+    {
+     "name": "Vegetation",
+     "area_from_km2": 20.4986,
+     "area_to_km2": 22.4772,
+     "net_km2": 1.9785,
+     "net_percent": 9.65,
+     "gained_km2": 1.5967,
+     "lost_km2": 0.3318
+    },
+    {
+     "name": "Built-up",
+     "area_from_km2": 0.5868,
+     "area_to_km2": 0.0775,
+     "net_km2": -0.5093,
+     "net_percent": -86.79,
+     "gained_km2": 0.0336,
+     "lost_km2": 0.3658
+    },
+    {
+     "name": "Bare / other",
+     "area_from_km2": 3.0306,
+     "area_to_km2": 1.2082,
+     "net_km2": -1.8224,
+     "net_percent": -60.13,
+     "gained_km2": 0.2557,
+     "lost_km2": 1.54
+    }
+   ],
+   "transitions": [
+    {
+     "from": "Bare / other",
+     "to": "Vegetation",
+     "km2": 1.3665,
+     "percent_of_area": 5.665
+    },
+    {
+     "from": "Vegetation",
+     "to": "Bare / other",
+     "km2": 0.2514,
+     "percent_of_area": 1.042
+    },
+    {
+     "from": "Built-up",
+     "to": "Vegetation",
+     "km2": 0.2302,
+     "percent_of_area": 0.954
+    },
+    {
+     "from": "Bare / other",
+     "to": "Water",
+     "km2": 0.1685,
+     "percent_of_area": 0.699
+    },
+    {
+     "from": "Built-up",
+     "to": "Water",
+     "km2": 0.1314,
+     "percent_of_area": 0.545
+    },
+    {
+     "from": "Vegetation",
+     "to": "Water",
+     "km2": 0.0518,
+     "percent_of_area": 0.215
+    },
+    {
+     "from": "Vegetation",
+     "to": "Built-up",
+     "km2": 0.0286,
+     "percent_of_area": 0.119
+    },
+    {
+     "from": "Bare / other",
+     "to": "Built-up",
+     "km2": 0.005,
+     "percent_of_area": 0.021
+    },
+    {
+     "from": "Built-up",
+     "to": "Bare / other",
+     "km2": 0.0043,
+     "percent_of_area": 0.018
+    }
+   ],
+   "change_types": [
+    {
+     "name": "Vegetation \u2192 Built-up",
+     "color": "rgb(170,30,30)",
+     "km2": 0.0286,
+     "percent": 0.119
+    },
+    {
+     "name": "Vegetation \u2192 Bare / other",
+     "color": "rgb(240,140,40)",
+     "km2": 0.2514,
+     "percent": 1.042
+    },
+    {
+     "name": "Bare \u2192 Built-up",
+     "color": "rgb(160,60,200)",
+     "km2": 0.005,
+     "percent": 0.021
+    },
+    {
+     "name": "Vegetation gain",
+     "color": "rgb(30,200,80)",
+     "km2": 1.5967,
+     "percent": 6.619
+    },
+    {
+     "name": "Water loss",
+     "color": "rgb(150,100,50)",
+     "km2": 0.0,
+     "percent": 0.0
+    },
+    {
+     "name": "Water gain",
+     "color": "rgb(30,120,230)",
+     "km2": 0.3517,
+     "percent": 1.458
+    },
+    {
+     "name": "Built-up \u2192 Bare / other",
+     "color": "rgb(235,215,60)",
+     "km2": 0.0043,
+     "percent": 0.018
+    }
+   ],
+   "vegetation_stress_percent": 1.3,
+   "stress_ndvi_drop": 0.214,
+   "noise_margins": {
+    "NDVI": 0.214,
+    "NDWI": 0.123,
+    "NDBI": 0.157
+   },
+   "mean_ndvi_change": 0.0815,
+   "warnings": [
+    "The two images are only 1 year apart, so much of the difference may be seasonal or noise, not real land change."
+   ]
+  },
+  {
+   "from_year": 2019,
+   "to_year": 2026,
+   "label": "2019 \u2192 2026",
+   "years_apart": 7,
+   "analysed_km2": 24.122,
+   "changed_km2": 2.1228,
+   "changed_percent": 8.8,
+   "categories": [
+    {
+     "name": "Water",
+     "area_from_km2": 0.359,
+     "area_to_km2": 0.0225,
+     "net_km2": -0.3365,
+     "net_percent": -93.74,
+     "gained_km2": 0.0,
+     "lost_km2": 0.3353
+    },
+    {
+     "name": "Vegetation",
+     "area_from_km2": 22.4772,
+     "area_to_km2": 21.5811,
+     "net_km2": -0.8961,
+     "net_percent": -3.99,
+     "gained_km2": 0.5565,
+     "lost_km2": 1.2774
+    },
+    {
+     "name": "Built-up",
+     "area_from_km2": 0.0775,
+     "area_to_km2": 0.1663,
+     "net_km2": 0.0888,
+     "net_percent": null,
+     "gained_km2": 0.127,
+     "lost_km2": 0.0411
+    },
+    {
+     "name": "Bare / other",
+     "area_from_km2": 1.2082,
+     "area_to_km2": 2.3521,
+     "net_km2": 1.1439,
+     "net_percent": 94.68,
+     "gained_km2": 1.4393,
+     "lost_km2": 0.4691
+    }
+   ],
+   "transitions": [
+    {
+     "from": "Vegetation",
+     "to": "Bare / other",
+     "km2": 1.2082,
+     "percent_of_area": 5.009
+    },
+    {
+     "from": "Bare / other",
+     "to": "Vegetation",
+     "km2": 0.4668,
+     "percent_of_area": 1.935
+    },
+    {
+     "from": "Water",
+     "to": "Bare / other",
+     "km2": 0.2248,
+     "percent_of_area": 0.932
+    },
+    {
+     "from": "Vegetation",
+     "to": "Built-up",
+     "km2": 0.0692,
+     "percent_of_area": 0.287
+    },
+    {
+     "from": "Water",
+     "to": "Built-up",
+     "km2": 0.0556,
+     "percent_of_area": 0.23
+    },
+    {
+     "from": "Water",
+     "to": "Vegetation",
+     "km2": 0.0549,
+     "percent_of_area": 0.227
+    },
+    {
+     "from": "Built-up",
+     "to": "Vegetation",
+     "km2": 0.0348,
+     "percent_of_area": 0.144
+    },
+    {
+     "from": "Built-up",
+     "to": "Bare / other",
+     "km2": 0.0063,
+     "percent_of_area": 0.026
+    },
+    {
+     "from": "Bare / other",
+     "to": "Built-up",
+     "km2": 0.0023,
+     "percent_of_area": 0.009
+    }
+   ],
+   "change_types": [
+    {
+     "name": "Vegetation \u2192 Built-up",
+     "color": "rgb(170,30,30)",
+     "km2": 0.0692,
+     "percent": 0.287
+    },
+    {
+     "name": "Vegetation \u2192 Bare / other",
+     "color": "rgb(240,140,40)",
+     "km2": 1.2082,
+     "percent": 5.009
+    },
+    {
+     "name": "Bare \u2192 Built-up",
+     "color": "rgb(160,60,200)",
+     "km2": 0.0023,
+     "percent": 0.009
+    },
+    {
+     "name": "Vegetation gain",
+     "color": "rgb(30,200,80)",
+     "km2": 0.5016,
+     "percent": 2.08
+    },
+    {
+     "name": "Water loss",
+     "color": "rgb(150,100,50)",
+     "km2": 0.3353,
+     "percent": 1.39
+    },
+    {
+     "name": "Water gain",
+     "color": "rgb(30,120,230)",
+     "km2": 0.0,
+     "percent": 0.0
+    },
+    {
+     "name": "Built-up \u2192 Bare / other",
+     "color": "rgb(235,215,60)",
+     "km2": 0.0063,
+     "percent": 0.026
+    }
+   ],
+   "vegetation_stress_percent": 6.18,
+   "stress_ndvi_drop": 0.183,
+   "noise_margins": {
+    "NDVI": 0.183,
+    "NDWI": 0.12,
+    "NDBI": 0.15
+   },
+   "mean_ndvi_change": -0.0283,
+   "warnings": []
+  },
+  {
+   "from_year": 2018,
+   "to_year": 2026,
+   "label": "2018 \u2192 2026",
+   "years_apart": 8,
+   "analysed_km2": 24.122,
+   "changed_km2": 2.0513,
+   "changed_percent": 8.5,
+   "categories": [
+    {
+     "name": "Water",
+     "area_from_km2": 0.0059,
+     "area_to_km2": 0.0225,
+     "net_km2": 0.0166,
+     "net_percent": null,
+     "gained_km2": 0.0161,
+     "lost_km2": 0.0
+    },
+    {
+     "name": "Vegetation",
+     "area_from_km2": 20.4986,
+     "area_to_km2": 21.5811,
+     "net_km2": 1.0824,
+     "net_percent": 5.28,
+     "gained_km2": 1.3508,
+     "lost_km2": 0.6648
+    },
+    {
+     "name": "Built-up",
+     "area_from_km2": 0.5868,
+     "area_to_km2": 0.1663,
+     "net_km2": -0.4205,
+     "net_percent": -71.66,
+     "gained_km2": 0.0571,
+     "lost_km2": 0.2557
+    },
+    {
+     "name": "Bare / other",
+     "area_from_km2": 3.0306,
+     "area_to_km2": 2.3521,
+     "net_km2": -0.6785,
+     "net_percent": -22.39,
+     "gained_km2": 0.6273,
+     "lost_km2": 1.1308
+    }
+   ],
+   "transitions": [
+    {
+     "from": "Bare / other",
+     "to": "Vegetation",
+     "km2": 1.1133,
+     "percent_of_area": 4.615
+    },
+    {
+     "from": "Vegetation",
+     "to": "Bare / other",
+     "km2": 0.6222,
+     "percent_of_area": 2.579
+    },
+    {
+     "from": "Built-up",
+     "to": "Vegetation",
+     "km2": 0.2375,
+     "percent_of_area": 0.985
+    },
+    {
+     "from": "Vegetation",
+     "to": "Built-up",
+     "km2": 0.0417,
+     "percent_of_area": 0.173
+    },
+    {
+     "from": "Bare / other",
+     "to": "Built-up",
+     "km2": 0.0154,
+     "percent_of_area": 0.064
+    },
+    {
+     "from": "Built-up",
+     "to": "Water",
+     "km2": 0.0131,
+     "percent_of_area": 0.054
+    },
+    {
+     "from": "Built-up",
+     "to": "Bare / other",
+     "km2": 0.0051,
+     "percent_of_area": 0.021
+    },
+    {
+     "from": "Bare / other",
+     "to": "Water",
+     "km2": 0.0022,
+     "percent_of_area": 0.009
+    },
+    {
+     "from": "Vegetation",
+     "to": "Water",
+     "km2": 0.0009,
+     "percent_of_area": 0.004
+    }
+   ],
+   "change_types": [
+    {
+     "name": "Vegetation \u2192 Built-up",
+     "color": "rgb(170,30,30)",
+     "km2": 0.0417,
+     "percent": 0.173
+    },
+    {
+     "name": "Vegetation \u2192 Bare / other",
+     "color": "rgb(240,140,40)",
+     "km2": 0.6222,
+     "percent": 2.579
+    },
+    {
+     "name": "Bare \u2192 Built-up",
+     "color": "rgb(160,60,200)",
+     "km2": 0.0154,
+     "percent": 0.064
+    },
+    {
+     "name": "Vegetation gain",
+     "color": "rgb(30,200,80)",
+     "km2": 1.3508,
+     "percent": 5.6
+    },
+    {
+     "name": "Water loss",
+     "color": "rgb(150,100,50)",
+     "km2": 0.0,
+     "percent": 0.0
+    },
+    {
+     "name": "Water gain",
+     "color": "rgb(30,120,230)",
+     "km2": 0.0161,
+     "percent": 0.067
+    },
+    {
+     "name": "Built-up \u2192 Bare / other",
+     "color": "rgb(235,215,60)",
+     "km2": 0.0051,
+     "percent": 0.021
+    }
+   ],
+   "vegetation_stress_percent": 2.24,
+   "stress_ndvi_drop": 0.159,
+   "noise_margins": {
+    "NDVI": 0.159,
+    "NDWI": 0.096,
+    "NDBI": 0.111
+   },
+   "mean_ndvi_change": 0.0532,
+   "warnings": []
+  }
+ ],
+ "overall_label": "2018 \u2192 2026",
+ "health": {
+  "vegetation": 5.28,
+  "water": null,
+  "urban": -71.66,
+  "cropstress": 2.24
+ },
+ "legends": {
+  "change": [
+   {
+    "name": "Vegetation \u2192 Built-up",
+    "color": "rgb(170,30,30)"
+   },
+   {
+    "name": "Vegetation \u2192 Bare / other",
+    "color": "rgb(240,140,40)"
+   },
+   {
+    "name": "Bare \u2192 Built-up",
+    "color": "rgb(160,60,200)"
+   },
+   {
+    "name": "Vegetation gain",
+    "color": "rgb(30,200,80)"
+   },
+   {
+    "name": "Water loss",
+    "color": "rgb(150,100,50)"
+   },
+   {
+    "name": "Water gain",
+    "color": "rgb(30,120,230)"
+   },
+   {
+    "name": "Built-up \u2192 Bare / other",
+    "color": "rgb(235,215,60)"
+   },
+   {
+    "name": "No change",
+    "color": "rgb(200,200,200)"
+   },
+   {
+    "name": "No data / excluded",
+    "color": "rgb(110,110,110)"
+   }
+  ],
+  "difference": {
+   "title": "Change in NDVI (later \u2212 earlier)",
+   "min": -0.4,
+   "max": 0.4,
+   "stops": [
+    {
+     "value": -0.4,
+     "percent": 0.0,
+     "color": "rgb(180,30,30)"
+    },
+    {
+     "value": -0.15,
+     "percent": 31.2,
+     "color": "rgb(240,150,90)"
+    },
+    {
+     "value": 0.0,
+     "percent": 50.0,
+     "color": "rgb(235,235,235)"
+    },
+    {
+     "value": 0.15,
+     "percent": 68.8,
+     "color": "rgb(150,210,130)"
+    },
+    {
+     "value": 0.4,
+     "percent": 100.0,
+     "color": "rgb(20,120,40)"
+    }
+   ]
+  }
+ },
+ "settings": {
+  "min_patch_pixels": 4,
+  "noise_percentile": 90,
+  "min_base_area_km2": 0.1,
+  "stress_ndvi_drop": 0.15
+ },
+ "notes": [
+  "Each pixel's land class in the earlier year is compared with its class in the later year. Only ground that is usable in ALL years is compared.",
+  "A class change only counts when the index behind it (NDVI for vegetation, NDWI for water, NDBI for built-up/bare) moved by more than the normal difference between the two dates. That normal difference is measured on pixels whose class did not change (their 90th percentile). This stops pixels that sit right at a threshold from flipping back and forth.",
+  "Net change = area in the later year minus area in the earlier year. 'Gained' and 'lost' count only changed patches of at least 4 pixels; smaller patches are treated as noise, so gained minus lost can differ slightly from the net change.",
+  "A percentage change is not shown when a class covered less than 0.1 km\u00b2 at the start, because it would be unreliable.",
+  "Vegetation stress is the share of the starting vegetation that is still vegetation but whose NDVI fell by more than the noise margin (at least 0.15). It is an indicator, not a crop-health diagnosis.",
+  "Different dates, seasons, haze and classification errors can look like change. Treat small changes with care."
+ ]
+}

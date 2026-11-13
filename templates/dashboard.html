@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · AI Earth Doctor{% endblock %}
+
+{% block content %}
+
+<!-- ============ 1. REGION + DATA SELECTION ============ -->
+<section class="card">
+    <h2>1. Choose region and satellite images</h2>
+
+    <form id="analyze-form" novalidate>
+
+        <div class="form-row">
+            <label for="data-source">Data source</label>
+            <select id="data-source">
+                <option value="sample">Sample region: Gurugram area (real Sentinel-2 files in data/sample/demo_region)</option>
+                <option value="custom">My own region (upload files)</option>
+            </select>
+        </div>
+
+        <div class="form-row" id="custom-name-row" hidden>
+            <label for="region-name">Region name</label>
+            <input type="text" id="region-name" maxlength="60" placeholder="e.g. My city outskirts">
+        </div>
+
+        <div class="upload-grid" id="upload-grid">
+            {% set years = [2018, 2022, 2026] %}
+            {% for y in years %}
+            <div class="upload-slot" data-slot="{{ loop.index }}">
+                <label class="slot-year">Year
+                    <input type="number" class="year-input" id="year{{ loop.index }}"
+                           value="{{ y }}" min="2015" max="2035">
+                </label>
+                <input type="file" class="file-input" id="file{{ loop.index }}"
+                       accept=".tif,.tiff">
+                <div class="slot-info" id="info{{ loop.index }}">No file chosen</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <p class="hint" id="source-hint"></p>
+
+        <div class="options-row">
+            <strong>Land classification:</strong>
+            <label class="check"><input type="radio" name="opt-method" id="opt-method-rules" value="rules" checked> Rule-based
+                <span class="tip" data-tip="Fixed index thresholds (NDVI, NDWI, NDBI). Simple and fully explainable.">ⓘ</span></label>
+            <label class="check"><input type="radio" name="opt-method" id="opt-method-ml" value="ml"> Machine learning
+                <span class="tip" data-tip="A classifier trained on confident pixels. It also decides the ambiguous pixels near the thresholds. Needs python train_model.py once.">ⓘ</span></label>
+            <span class="badge badge-grey" id="ml-model-badge">checking model...</span>
+        </div>
+
+        <div class="options-row">
+            <strong>Preprocessing:</strong>
+            <label class="check"><input type="checkbox" id="opt-clouds" checked> Mask clouds
+                <span class="tip" data-tip="Pixels that look like cloud (very bright and white in blue, visible and near-infrared light) are excluded, so a cloud is not mistaken for land change.">ⓘ</span></label>
+            <label class="check"><input type="checkbox" id="opt-denoise"> Reduce noise
+                <span class="tip" data-tip="3x3 median filter. Removes single noisy pixels but also blurs small details, so it is off by default. Sentinel-2 L2A data is already clean.">ⓘ</span></label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="analyze-btn">🔍 Analyze Region</button>
+        <div id="status-box" class="status-box" hidden></div>
+    </form>
+</section>
+
+<!-- ============ 1b. DATASET SUMMARY (filled after Analyze) ============ -->
+<section class="card" id="dataset-card" hidden>
+    <h2>Dataset ready <span class="badge badge-blue" id="dataset-badge"></span></h2>
+    <p class="hint" id="dataset-summary"></p>
+    <div class="table-scroll"><table class="data-table" id="dataset-table"></table></div>
+    <div id="dataset-warnings"></div>
+    <details class="band-details">
+        <summary>What are the 5 bands in each file?</summary>
+        <div class="table-scroll"><table class="data-table" id="band-table"></table></div>
+    </details>
+</section>
+
+<!-- ============ 1c. PREPROCESSING REPORT (filled after Analyze) ============ -->
+<section class="card" id="prep-card" hidden>
+    <h2>Preprocessing report <span class="badge badge-green" id="prep-badge">Images cleaned</span></h2>
+    <p class="hint" id="prep-summary"></p>
+
+    <div class="seg" id="prep-toggle">
+        <button type="button" class="seg-btn active" data-view="rgb">True colour</button>
+        <button type="button" class="seg-btn" data-view="mask">Cloud / no-data mask</button>
+    </div>
+    <div class="prep-gallery" id="prep-gallery"></div>
+    <p class="hint">In the mask view, magenta = cloud-like pixels that are excluded, grey = no data.</p>
+
+    <div class="table-scroll"><table class="data-table" id="prep-table"></table></div>
+    <div id="prep-warnings"></div>
+
+    <details class="band-details" open>
+        <summary>What was done, and why</summary>
+        <ol class="steps-list" id="prep-steps"></ol>
+    </details>
+</section>
+
+<!-- ============ 1d. INDICES (filled after Analyze) ============ -->
+<section class="card" id="indices-card" hidden>
+    <h2>Vegetation, water and built-up indices <span class="badge badge-amber">Rule-based estimate</span></h2>
+    <p class="hint" id="ind-summary"></p>
+
+    <div class="formula-grid" id="ind-formulas"></div>
+
+    <div class="seg" id="ind-toggle">
+        <button type="button" class="seg-btn" data-view="rgb">True colour</button>
+        <button type="button" class="seg-btn active" data-view="ndvi">NDVI</button>
+        <button type="button" class="seg-btn" data-view="ndwi">NDWI</button>
+        <button type="button" class="seg-btn" data-view="ndbi">NDBI</button>
+        <button type="button" class="seg-btn" data-view="landcover">Land cover</button>
+    </div>
+    <div class="prep-gallery" id="ind-gallery"></div>
+    <div class="legend" id="ind-legend"></div>
+
+    <div class="table-scroll"><table class="data-table" id="ind-table"></table></div>
+    <div id="ind-warnings"></div>
+
+    <details class="band-details">
+        <summary>How the land classes are decided</summary>
+        <ul class="steps-list" id="ind-thresholds"></ul>
+        <ul class="steps-list" id="ind-notes"></ul>
+    </details>
+</section>
+
+<!-- ============ 1e. MACHINE-LEARNING LAND COVER (filled after Analyze, if chosen) ============ -->
+<section class="card" id="ml-card" hidden>
+    <h2>Machine-learning land cover <span class="badge badge-blue" id="ml-badge"></span></h2>
+    <p class="hint" id="ml-summary"></p>
+    <div class="seg" id="ml-toggle">
+        <button type="button" class="seg-btn" data-view="rule">Rule-based</button>
+        <button type="button" class="seg-btn active" data-view="ml">Machine learning</button>
+        <button type="button" class="seg-btn" data-view="confidence">Confidence</button>
+    </div>
+    <div class="prep-gallery" id="ml-gallery"></div>
+    <div class="legend" id="ml-legend"></div>
+    <div class="table-scroll"><table class="data-table" id="ml-table"></table></div>
+    <h3>Where the two methods differ (<span id="ml-matrix-year"></span>, share of the ground)</h3>
+    <div class="table-scroll"><table class="data-table" id="ml-matrix"></table></div>
+    <details class="band-details">
+        <summary>About the model, and how much to trust it</summary>
+        <ul class="steps-list" id="ml-about"></ul>
+    </details>
+</section>
+
+<!-- ============ 2. EARTH HEALTH CARDS ============ -->
+<section>
+    <h2 class="section-title">2. Earth Health
+        <span class="badge badge-grey" id="data-label">No analysis yet</span>
+    </h2>
+    <div class="stat-grid">
+        <div class="stat-card" id="card-vegetation">
+            <div class="stat-label">🌳 Vegetation
+                <span class="tip" data-tip="Estimated from NDVI = (NIR − Red) / (NIR + Red). Healthy plants reflect a lot of near-infrared light.">ⓘ</span></div>
+            <div class="stat-value" id="val-vegetation">—</div>
+            <div class="stat-sub">Awaiting analysis</div>
+        </div>
+        <div class="stat-card" id="card-water">
+            <div class="stat-label">💧 Water
+                <span class="tip" data-tip="Estimated from NDWI = (Green − NIR) / (Green + NIR). Water absorbs near-infrared light.">ⓘ</span></div>
+            <div class="stat-value" id="val-water">—</div>
+            <div class="stat-sub">Awaiting analysis</div>
+        </div>
+        <div class="stat-card" id="card-urban">
+            <div class="stat-label">🏙️ Urban area
+                <span class="tip" data-tip="Estimated from NDBI = (SWIR − NIR) / (SWIR + NIR). Built-up surfaces reflect more shortwave infrared.">ⓘ</span></div>
+            <div class="stat-value" id="val-urban">—</div>
+            <div class="stat-sub">Awaiting analysis</div>
+        </div>
+        <div class="stat-card" id="card-cropstress">
+            <div class="stat-label">🌱 Vegetation stress
+                <span class="tip" data-tip="Share of the starting vegetation that is still vegetation but whose NDVI fell clearly (by more than normal date-to-date differences). It is an indicator, not a crop-health diagnosis.">ⓘ</span></div>
+            <div class="stat-value" id="val-cropstress">—</div>
+            <div class="stat-sub">Awaiting analysis</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 2b. CHANGE OVER TIME (filled after Analyze) ============ -->
+<section class="card" id="change-card" hidden>
+    <h2>Change over time <span class="badge badge-amber" id="change-badge">Rule-based estimate</span></h2>
+    <p class="hint" id="change-summary"></p>
+    <div class="table-scroll"><table class="data-table" id="change-table"></table></div>
+    <div id="change-warnings"></div>
+    <p><a class="btn btn-primary" id="change-link" href="/change-detection">🛰️ Open Change Detection (before / after maps)</a></p>
+</section>
+
+<!-- ============ 3. MAP + DIAGNOSIS ============ -->
+<div class="two-col">
+    <section class="card">
+        <h2>3. Map</h2>
+        <div id="map"></div>
+        <p class="hint" id="map-note">Base map needs internet. After Analyze, the green box shows the real area covered by your files.</p>
+    </section>
+
+    <section class="card">
+        <h2>🩺 AI Earth Diagnosis</h2>
+        <p>Risk level: <span class="badge badge-grey" id="risk-badge">Not analysed</span></p>
+        <p id="diagnosis-text" class="diagnosis">
+            Run an analysis to see a diagnosis based on the detected changes.
+        </p>
+    </section>
+</div>
+
+<!-- ============ 4. CHARTS ============ -->
+<div class="two-col">
+    <section class="card">
+        <h2>4. Trend over years <span class="badge badge-amber">Rule-based estimate</span></h2>
+        <div class="chart-wrap">
+            <canvas id="trend-chart"></canvas>
+            <div class="empty-overlay" id="trend-empty">No analysis yet</div>
+        </div>
+    </section>
+    <section class="card">
+        <h2>Land-use distribution <span class="hint" id="landuse-year"></span></h2>
+        <div class="chart-wrap">
+            <canvas id="landuse-chart"></canvas>
+            <div class="empty-overlay" id="landuse-empty">No analysis yet</div>
+        </div>
+    </section>
+</div>
+
+<!-- ============ 5. OPTIONAL FEATURES (explicit buttons only) ============ -->
+<section class="card">
+    <h2>5. Optional tools</h2>
+    <p class="hint">These open only when you choose them. The planner never runs automatically.</p>
+    <div class="action-row">
+        <a class="btn btn-warn" href="{{ url_for('disaster_watch') }}">🚨 Disaster Watch</a>
+        <a class="btn btn-secondary" href="{{ url_for('planner') }}">🏗️ Sustainable Planner</a>
+        <a class="btn btn-green" href="{{ url_for('recovery') }}">🌱 Earth Recovery</a>
+        <a class="btn btn-dark" href="{{ url_for('doctor') }}">🩺 Ask Earth Doctor</a>
+    </div>
+    <p class="note">
+        Suitability scores and development estimates are decision-support only.
+        Real construction needs government approval, environmental assessment,
+        zoning approval, engineering surveys and soil studies.
+    </p>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='vendor/leaflet.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/chart.umd.js') }}"></script>
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

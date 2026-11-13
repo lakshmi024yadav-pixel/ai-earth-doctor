@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AI Earth Doctor{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/leaflet.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="layout">
+
+    <!-- Left sidebar: navigation (menu comes from NAV_ITEMS in app.py) -->
+    <aside class="sidebar">
+        <div class="brand">🌍 <span>AI Earth Doctor</span></div>
+        <nav class="nav">
+            {% for item in nav_items %}
+            <a href="{{ url_for(item.endpoint) }}"
+               class="nav-link {% if request.endpoint == item.endpoint %}active{% endif %}">
+                <span class="nav-icon">{{ item.icon }}</span>{{ item.label }}
+            </a>
+            {% endfor %}
+        </nav>
+        <div class="sidebar-foot">
+            <a href="{{ url_for('status') }}">System status</a>
+        </div>
+    </aside>
+
+    <!-- Right side: page header + page content -->
+    <div class="main">
+        <header class="topbar">
+            <h1>{% block page_title %}Environmental Intelligence Dashboard{% endblock %}</h1>
+            <p>{% block page_subtitle %}Detect → Understand → Predict → Plan → Protect{% endblock %}</p>
+        </header>
+
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="footer">
+            AI Earth Doctor · BCA Final Year Project. Results are decision-support
+            estimates and do not replace environmental experts or legal approvals.
+        </footer>
+    </div>
+</div>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

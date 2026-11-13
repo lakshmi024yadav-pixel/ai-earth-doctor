@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Change Detection · AI Earth Doctor{% endblock %}
+{% block page_title %}🛰️ Change Detection{% endblock %}
+{% block page_subtitle %}What changed between the years, and where{% endblock %}
+
+{% block content %}
+<div id="cd-root" data-analysis="{{ analysis_id if analysis_id else '' }}">
+
+    <section class="card center-card" id="cd-empty" hidden>
+        <div class="big-icon">🛰️</div>
+        <h2>No change results yet</h2>
+        <p id="cd-empty-text">Go to the dashboard, choose a region and click <strong>Analyze Region</strong>. The results then appear here.</p>
+        <a class="btn btn-primary" href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+    </section>
+
+    <section class="card" id="cd-loading">
+        <p class="hint">Loading change results...</p>
+    </section>
+
+    <div id="cd-main" hidden>
+
+        <section class="card">
+            <h2>Compare years <span class="badge badge-amber">Rule-based estimate</span></h2>
+            <div class="seg" id="cd-pairs"></div>
+            <p class="hint" id="cd-region-hint"></p>
+        </section>
+
+        <div class="cd-grid">
+            <section class="card">
+                <h2>Before / after <span class="hint" id="cd-compare-title"></span></h2>
+                <div class="seg" id="cd-views">
+                    <button type="button" class="seg-btn active" data-view="rgb">True colour</button>
+                    <button type="button" class="seg-btn" data-view="ndvi">NDVI</button>
+                    <button type="button" class="seg-btn" data-view="ndwi">NDWI</button>
+                    <button type="button" class="seg-btn" data-view="ndbi">NDBI</button>
+                    <button type="button" class="seg-btn" data-view="landcover">Land cover</button>
+                </div>
+                <div class="compare" id="cmp">
+                    <img class="cmp-img" id="cmp-after" alt="Later year">
+                    <div class="cmp-before-wrap" id="cmp-before-wrap"><img class="cmp-img" id="cmp-before" alt="Earlier year"></div>
+                    <div class="cmp-handle" id="cmp-handle"></div>
+                    <span class="cmp-tag left" id="cmp-tag-before"></span>
+                    <span class="cmp-tag right" id="cmp-tag-after"></span>
+                </div>
+                <input type="range" class="cmp-range" id="cmp-range" min="0" max="100" value="50" aria-label="Before and after slider">
+                <p class="hint" id="cd-view-hint"></p>
+            </section>
+
+            <section class="card">
+                <h2>Change map</h2>
+                <div class="seg" id="cd-maps">
+                    <button type="button" class="seg-btn active" data-map="change">Class changes</button>
+                    <button type="button" class="seg-btn" data-map="ndvi_difference">NDVI difference</button>
+                </div>
+                <img class="map-img" id="cd-map-img" alt="Change map">
+                <div class="legend" id="cd-map-legend"></div>
+            </section>
+        </div>
+
+        <section class="card" style="margin-top:20px">
+            <h2>Summary: <span id="cd-pair-label"></span></h2>
+            <p class="hint" id="cd-summary"></p>
+            <div class="table-scroll"><table class="data-table" id="cd-table"></table></div>
+            <h3>Net change by class (km²)</h3>
+            <div id="cd-bars"></div>
+        </section>
+
+        <section class="card">
+            <h2>Category changes</h2>
+            <p class="hint">Where pixels moved from one class to another (patches of at least a few pixels, noise removed), largest first.</p>
+            <div class="table-scroll"><table class="data-table" id="cd-trans"></table></div>
+        </section>
+
+        <section class="card">
+            <h2>How reliable is this?</h2>
+            <div id="cd-warnings"></div>
+            <p class="hint" id="cd-margins"></p>
+            <ul class="steps-list" id="cd-notes"></ul>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/change.js') }}"></script>
+{% endblock %}

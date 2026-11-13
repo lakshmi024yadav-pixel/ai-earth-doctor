@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}System Status · AI Earth Doctor{% endblock %}
+{% block page_title %}System Status{% endblock %}
+{% block page_subtitle %}Checks that Flask and the database are working{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Checks</h2>
+    <ul class="status-list">
+        <li>Flask server: <span class="badge badge-green">Running</span></li>
+        <li>
+            Database file:
+            {% if db_exists %}
+                <span class="badge badge-green">Found ({{ table_count }} tables)</span>
+            {% else %}
+                <span class="badge badge-red">Not found: run database\init_db.py</span>
+            {% endif %}
+        </li>
+    </ul>
+
+    {% if tables %}
+    <h2>Tables in database.db</h2>
+    <div class="table-grid">
+        {% for t in tables %}
+        <span class="table-chip">{{ t }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
